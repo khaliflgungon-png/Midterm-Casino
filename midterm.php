@@ -180,3 +180,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Location: '.$_SERVER['PHP_SELF']);
     exit;
 }
+
+//  RENDER PREP
+$chips    = $_SESSION['chips'];
+$score    = $_SESSION['score'];
+$history  = $_SESSION['history'];
+$message  = $_SESSION['message'];
+$lastGame = $_SESSION['lastGame'];
+$_SESSION['message']  = '';
+$_SESSION['lastGame'] = null;
+
+function renderCard(array $card): string {
+    $col = $card['red'] ? 'red' : 'blk';
+    return "<div class='card {$col}'>
+        <span class='r top'>{$card['rank']}</span>
+        <span class='s mid'>{$card['suit']}</span>
+        <span class='r bot'>{$card['rank']}</span>
+    </div>";
+}
+
+function handScore(array $hand): int {
+    $map = ['A'=>1,'2'=>2,'3'=>3,'4'=>4,'5'=>5,'6'=>6,'7'=>7,'8'=>8,'9'=>9];
+    return array_sum(array_map(fn($c) => $map[$c['rank']] ?? 0, $hand)) % 10;
+}
+?>
