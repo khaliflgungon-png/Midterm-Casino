@@ -98,3 +98,62 @@ function makeHand(int $target, array $suits, array $ranks): array {
         ['rank'=>$ranks[$b], 'suit'=>$s2, 'red'=>in_array($s2,$redSuits)],
     ];
 }
+
+//  SESSION INIT
+if (!isset($_SESSION['chips'])) {
+    $_SESSION['chips']    = 1000;
+    $_SESSION['score']    = 0;
+    $_SESSION['history']  = [];
+    $_SESSION['message']  = '';
+    $_SESSION['lastGame'] = null;
+}
+
+//  HANDLE POST — Task 2: Receive user bet
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $action = $_POST['action'] ?? '';
+
+    if ($action === 'deal') {
+        $bet   = $_POST['bet']   ?? 'player';
+        $wager = max(1, min((int)($_POST['wager'] ?? 50), $_SESSION['chips']));
+
+        if (!in_array($bet, ['player','banker','tie'])) {
+            $_SESSION['message'] = 'Invalid bet selection.';
+        } else {
+            // Task 1: Generate random number
+            $fateNumber = generateFateNumber();
+
+            // Task 3: Conditional logic
+            [$winner, $resultType, $pointsEarned] = evaluateBaccarat($bet, $fateNumber);
+
+            // Chip payout
+            $payout = calculatePayout($bet, $winner, $resultType, $wager);
+            $_SESSION['chips'] += $payout;
+            if ($_SESSION['chips'] < 0) $_SESSION['chips'] = 0;
+
+            // Points score (US4.2.1)
+            $_SESSION['score'] += $pointsEarned;
+
+            // Visual hands seeded from fate number
+            $hands = buildVisualHands($fateNumber, $winner);
+
+            // Task 4: Result message
+            $message = buildResultMessage($bet, $winner, $resultType, $fateNumber, $pointsEarned);
+
+            $_SESSION['lastGame'] = compact(
+                'hands','winner','resultType','bet','wager',
+                'payout','fateNumber','pointsEarned','message'
+            );
+
+            array_unshift($_SESSION['history'], [
+                'bet'    => ucfirst($bet),
+                'wager'  => $wager,
+                'fate'   => $fateNumber,
+                'result' => $resultType === 'jackpot' ? 'Jackpot' : ucfirst($resultType),
+                'payout' => $payout,
+                'points' => $pointsEarned,
+            ]);
+            if (count($_SESSION['history']) > 8) array_pop($_SESSION['history']);
+
+            $_SESSION['message'] = $message;
+        }
+    }
