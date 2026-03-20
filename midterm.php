@@ -157,3 +157,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['message'] = $message;
         }
     }
+
+    if ($action === 'redeem') {
+        // 100 pts → 1,000 chips exchange
+        $redeemable = (int) floor($_SESSION['score'] / 100);
+        if ($redeemable >= 1) {
+            $used = max(1, min((int)($_POST['redeem_times'] ?? 1), $redeemable));
+            $_SESSION['score'] -= $used * 100;
+            $_SESSION['chips'] += $used * 1000;
+            $_SESSION['message'] = "🎁 Redeemed {$used}×100 pts → +" . number_format($used * 1000) . " chips!";
+        } else {
+            $_SESSION['message'] = "⚠️ Need at least 100 points to redeem.";
+        }
+    }
+
+    if ($action === 'reset') {
+        session_destroy();
+        header('Location: '.$_SERVER['PHP_SELF']);
+        exit;
+    }
+
+    header('Location: '.$_SERVER['PHP_SELF']);
+    exit;
+}
