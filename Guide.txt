@@ -8,3 +8,22 @@ Baccarat is a simple card game often found in casinos where players bet on which
 🔹 Betting options: • Player bet → wins if Player hand is higher  
     • Banker bet → wins if Banker hand is higher (most common)  
     • Tie bet → wins if both hands are equal (higher payout but risky)  
+
+═══════════════════════════════════════════════════════════════
+BACKEND CORE
+    Task 1 — Generate random number (1–30)
+    Task 2 — Receive user bet
+    Task 3 — PHP conditional logic (odd/even/jackpot)
+    Task 4 — Return result message
+═══════════════════════════════════════════════════════════════
+
+Task 1: Generate a random fate number 1–30.
+This number secretly drives every Baccarat outcome.
+
+Task 3: Evaluate the fate number against Baccarat bet patterns.
+    Jackpot (number % 7 == 0) → Tie — overrides odd/even
+    Odd     (number % 2 != 0) → Player hand wins
+    Even    (number % 2 == 0) → Banker hand wins
+    Returns array: [winner, result_type, points_earned]
+
+Task 4: Build a readable result message.
