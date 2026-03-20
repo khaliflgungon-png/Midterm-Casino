@@ -28,3 +28,30 @@ function evaluateBaccarat(string $bet, int $number): array {
 
     return [$winner, $resultType, $pointsEarned];
 }
+
+// Build a readable result message.
+function buildResultMessage(string $bet, string $winner, string $resultType, int $number, int $points): string {
+    $betLabel    = ucfirst($bet);
+    $winnerLabel = ucfirst($winner);
+
+    if ($resultType === 'jackpot' && $bet === 'tie') {
+        return "🎰 JACKPOT! Fate #{$number} is divisible by 7 — Tie wins! +{$points} pts!";
+    }
+    if ($resultType === 'jackpot') {
+        return "🎰 Jackpot Tie! Fate #{$number} — But you bet {$betLabel}. No points this round.";
+    }
+    if ($resultType === 'win') {
+        return "🏆 {$winnerLabel} wins! Fate #{$number} — Your {$betLabel} bet is correct. +{$points} pts!";
+    }
+    return "💸 {$winnerLabel} wins! Fate #{$number} — You bet {$betLabel}. Better luck next round.";
+}
+
+// Chip payout (separate from the points score system)
+function calculatePayout(string $bet, string $winner, string $resultType, int $wagered): int {
+    if ($resultType === 'jackpot' && $bet === 'tie') return $wagered * 8;
+    if ($resultType === 'jackpot')                   return -$wagered;
+    if ($bet !== $winner)                            return -$wagered;
+    if ($bet === 'tie')                              return $wagered * 8;
+    if ($bet === 'banker')                           return (int) floor($wagered * 0.95);
+    return $wagered;
+}
