@@ -9,13 +9,16 @@ Baccarat is a simple card game often found in casinos where players bet on which
     • Banker bet → wins if Banker hand is higher (most common)  
     • Tie bet → wins if both hands are equal (higher payout but risky)  
 
+=====
+
+Mines
 Some tiles hide mines 💣, while others are safe 💎.
 
 Goal:
-👉 Pick safe tiles without hitting a mine
-👉 The more safe tiles you uncover, the higher your winnings
+🔹 Pick safe tiles without hitting a mine
+🔹 The more safe tiles you uncover, the higher your winnings
 
-🧩 How to Play
+🔹 How to Play
 	1.	Place a Bet
 	•	Choose how much money/chips you want to risk.
 	2.	Select Number of Mines
@@ -29,13 +32,75 @@ Goal:
 	•	You can stop anytime and take your current winnings
 	•	If you keep going, the multiplier increases
 
-💰 Multiplier System
+🔹 Multiplier System
 	•	Each safe tile increases your payout multiplier
 	•	Example:
 	•	1 safe tile → 1.2x
 	•	3 safe tiles → 2.5x
 	•	5 safe tiles → 10x+
 
-⚠️ Risk vs Reward
+🔹 Risk vs Reward
 	•	Few mines → safer, lower profit
 	•	Many mines → risky, huge profit potential
+
+=====
+
+The Face Ball Game is a simple betting game where players choose face values and place bets. The game uses 3 balls, and each ball randomly lands on a face value.
+
+Players can bet on the following:
+	• 9
+	• J
+	• Q
+	• K
+	• A
+
+Game Mechanics
+The game uses 3 balls.
+Each ball randomly selects a value from the available faces (9, J, Q, K, A).
+Balls are dropped with an animation effect (visual falling/drawing).
+🔹 Betting System
+🔹 Betting Patterns (6 total combinations)
+
+Players can bet on different patterns such as:
+
+Specific face value (e.g., all balls = Q)
+Combination patterns (depending on your implementation)
+🔹 Winning Conditions
+
+The results are based on how many balls match the player’s chosen face:
+
+Single (1 match) → Player wins (low payout)
+Double (2 matches) → Player wins (medium payout)
+Triple (3 matches) → Player wins (high payout)
+🔹 User Options
+The player can choose:
+Their desired face value
+Their bet amount
+The number of balls to use (e.g., 1–3 balls)
+🔹 Payout Calculation
+
+The payout is calculated by:
+
+Winning Amount = Bet × Multiplier
+
+Multipliers depend on:
+Single match → small multiplier
+Double match → higher multiplier
+Triple match → highest multiplier
+🔹 Animation Feature
+Balls are displayed with a dropping animation
+Each ball reveals its result after landing
+Enhances user experience and randomness feel
+🔹 Example Flow
+User selects:
+Face: K
+Bet: 100
+Balls: 3
+Balls roll:
+Ball 1 → K
+Ball 2 → Q
+Ball 3 → K
+Result:
+2 matches → Double Win
+Payout:
+100 × (Double Multiplier)
