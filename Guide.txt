@@ -9,21 +9,33 @@ Baccarat is a simple card game often found in casinos where players bet on which
     • Banker bet → wins if Banker hand is higher (most common)  
     • Tie bet → wins if both hands are equal (higher payout but risky)  
 
-═══════════════════════════════════════════════════════════════
-BACKEND CORE
-    Task 1 — Generate random number (1–30)
-    Task 2 — Receive user bet
-    Task 3 — PHP conditional logic (odd/even/jackpot)
-    Task 4 — Return result message
-═══════════════════════════════════════════════════════════════
+Some tiles hide mines 💣, while others are safe 💎.
 
-Task 1: Generate a random fate number 1–30.
-This number secretly drives every Baccarat outcome.
+Goal:
+👉 Pick safe tiles without hitting a mine
+👉 The more safe tiles you uncover, the higher your winnings
 
-Task 3: Evaluate the fate number against Baccarat bet patterns.
-    Jackpot (number % 7 == 0) → Tie — overrides odd/even
-    Odd     (number % 2 != 0) → Player hand wins
-    Even    (number % 2 == 0) → Banker hand wins
-    Returns array: [winner, result_type, points_earned]
+🧩 How to Play
+	1.	Place a Bet
+	•	Choose how much money/chips you want to risk.
+	2.	Select Number of Mines
+	•	Example: 3 mines, 5 mines, etc.
+	•	More mines = higher risk + higher reward
+	3.	Start Clicking Tiles
+	•	Each click reveals either:
+	•	💎 Safe → you earn more
+	•	💣 Mine → you lose your bet instantly
+	4.	Cash Out Anytime
+	•	You can stop anytime and take your current winnings
+	•	If you keep going, the multiplier increases
 
-Task 4: Build a readable result message.
+💰 Multiplier System
+	•	Each safe tile increases your payout multiplier
+	•	Example:
+	•	1 safe tile → 1.2x
+	•	3 safe tiles → 2.5x
+	•	5 safe tiles → 10x+
+
+⚠️ Risk vs Reward
+	•	Few mines → safer, lower profit
+	•	Many mines → risky, huge profit potential
